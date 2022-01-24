@@ -18,7 +18,7 @@ class CampaignIndex extends Component {
                 header: address,
                 description: (
                     <Link route={`/campaigns/${address}`}>
-                        <a>View Campaign</a>
+                        <a>View Fund Pool</a>
                     </Link>
                 ),
                 fluid: true,
@@ -32,8 +32,11 @@ class CampaignIndex extends Component {
     render() {
         return (
             <Layout>
+                <h1 align="center" > CrowdChain <br/><label>The blockchain based Crowd Funding Platform</label> </h1>
+                <hr></hr>
+                <hr></hr>
                 <div>
-                    <h3 align="center" >Campaigns open for funding</h3>
+                    <h3 align="center" >Fund Pools open for Contributing</h3>
 
                     <Link route="/campaigns/new">
                         <a>
