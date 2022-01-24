@@ -37,14 +37,14 @@ export default class CampaignShow extends Component {
         const items = [
             {
                 header: manager,
-                description: 'The Manager created this Campaign and can create requests to withdraw money.',
+                description: 'The Manager created this Pool and can create requests to withdraw money.',
                 meta: 'Address of Manager',
                 style: { overflowWrap: 'break-word' }
             },
             {
-                header: minimumContribution,
+                header: web3.utils.fromWei(minimumContribution,'ether'),
                 description: 'You must contribute atleast this much wei to become a approver.',
-                meta: 'Minimum Contribution (wei)',
+                meta: 'Minimum Contribution (ETH)',
             },
             {
                 header: noOfReq,
@@ -58,8 +58,8 @@ export default class CampaignShow extends Component {
             },
             {
                 header: web3.utils.fromWei(campaignBalance, 'ether'),
-                description: 'The amount of money campaign has left to spend.',
-                meta: 'Campaign Balance (ether)',
+                description: 'The amount of money Fund has left to spend.',
+                meta: 'Campaign Balance (ETH)',
             },
             {
                 header: address,
@@ -69,13 +69,13 @@ export default class CampaignShow extends Component {
             }
         ];
 
-        return <Card.Group items={items} />;
+        return <Card.Group align="center" items={items} />;
     }
 
     render() {
         return (
             <Layout>
-                <h3 align="center" >Campaign Details</h3>
+                <h3 align="center" >Fund Pool Details</h3>
                 <hr></hr>
                 <Grid>
                     <Grid.Row>
@@ -105,7 +105,7 @@ export default class CampaignShow extends Component {
                 </Grid>
 
                 <hr></hr>
-                <h2 align="center" >View or Make withdrawal request from other Contributors</h2>
+                <h2 align="center" >View or Make requests</h2>
 
                 <Grid>
 
@@ -117,10 +117,13 @@ export default class CampaignShow extends Component {
                                     <Button  primary>View/Make Requests </Button>
                                 </a>
                             </Link>
+                            <label><br/>Note: Your withdrawal request needed to be approved by everyone before transaction</label>
                         </Grid.Column>
 
                     </Grid.Row>
                 </Grid>
+                <hr></hr>
+                <h5 align="center" >Blockchain Crowd Funding Platform</h5>
             </Layout>
         );
     }
