@@ -101,13 +101,19 @@ export default class CampaignShow extends Component {
                     <Grid.Column align="center" width={16} >
                             <ContributeForm address={this.props.address} />
                     </Grid.Column>
+                </Grid>
+
+                <hr></hr>
+                <h2 align="center" >View or Make withdrawal request from other Contributors</h2>
+
+                <Grid>
 
                     <Grid.Row>
 
                         <Grid.Column align="center" >
                             <Link route={`/campaigns/${this.props.address}/requests`}>
                                 <a  >
-                                    <Button  primary>View Requests </Button>
+                                    <Button  primary>View/Make Requests </Button>
                                 </a>
                             </Link>
                         </Grid.Column>
