@@ -65,6 +65,7 @@ export default class CampaignShow extends Component {
                 header: address,
                 description: 'Address of the Campaign Smart Contract. Check before request/contributing',
                 meta: 'Contract Address',
+                style: { overflowWrap: 'break-word' }
             }
         ];
 
