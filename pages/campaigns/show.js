@@ -59,7 +59,11 @@ export default class CampaignShow extends Component {
             {
                 header: web3.utils.fromWei(campaignBalance, 'ether'),
                 description: 'The amount of money Fund has left to spend.',
+<<<<<<< HEAD
                 meta: 'Campaign Balance (ETH)',
+=======
+                meta: 'Campaign Balance (ether)',
+>>>>>>> bff6a656bac65e57cf7158ee20e9e22251a788d3
             },
             {
                 header: address,
