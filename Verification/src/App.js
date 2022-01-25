@@ -1,5 +1,4 @@
 import './App.css';
-import logo from './logo.svg';
 
 import React, { useState } from 'react';
 import getWeb3 from "./getWeb3";
@@ -16,61 +15,38 @@ function App() {
     const [blockNumber, setBlockNumber] = useState('');
     const [gasUsed, setGasUsed] = useState('');
     const [loading, setLoading] = useState(false);
-    var file = '';                  // file object with global scope
+    var file = '';                  
 
-    /** @dev Take file input from user */
     const captureFile = (event) => {
-        event.stopPropagation();    // stop react bubbling up click event
-        event.preventDefault();     // stop react refreshing the browser
+        event.stopPropagation();    
+        event.preventDefault();     
         file = event.target.files[0];
         let reader = new window.FileReader();
         reader.readAsArrayBuffer(file);
         reader.onloadend = () => convertToBuffer(reader);
     };
 
-    /** @dev Convert the file to buffer to store on IPFS */
     const convertToBuffer = async(reader) => {
-        //file is converted to a buffer for upload to IPFS
         const buffer = await Buffer.from(reader.result);
-        //set this buffer as state variable, using React hook function
         setBuffer(buffer);
     };
 
-    /** @dev send file to IPFS  */
     const sendIt = async (event) => {
-        // set the waiting spinner when starting sendIt
         setLoading(true);
-        event.preventDefault();     // stop react refreshing browser at button click
-        // store buffer on IPFS
+        event.preventDefault();    
         const ipfsHash = await ipfs.add(buffer);        
-        console.log('ipfsHash after ipfs.add:', ipfsHash.path);
-        // set the hash (IPFS access key) in state using react hook function
         setIpfsHash(ipfsHash.path);
 
         try{
-            // get the blockchain interface
             const web3 = await getWeb3();
-            console.log('web3 sent back by getWeb3: ', web3);
-            // bring in user's Metamask account address
             const accounts = await web3.eth.getAccounts();
-            console.log('using account in Metamask to pay:', accounts);
-            // Get the contract instance, name it storeHashContract
             const storeHashContract = await storeHash();
-            console.log('smart contract to store Hash:', storeHashContract);
-            //obtain contract address from storeHashContract
             const ethAddress= await storeHashContract.options.address;
-            // set the address as a state variable, using react hook function
             setEthAddress(ethAddress);      // 'address' is used in HTML rendering
-            console.log('ethAddress storing the IPFS hash:', ethAddress);
-
-            // call smart contract method "setHash" via .send to store IPFS hash in Ethereum contract
             const receipt = await storeHashContract.methods.setHash(ipfsHash.path).send({from: accounts[0]});
-            console.log('receipt as returned by smart contract:', receipt);
             setStoreHashTransaction(receipt);
-            // reset the waiting spinner when transaction is done
             setLoading(false);
         }catch (error) {
-            // catch any errors for any of the above operations.
             alert(
                 `Failed to load web3. Check that Metamask connected this page to a blockchain account. Else see browser console for error details.`
             );
@@ -81,18 +57,17 @@ function App() {
 
     const getDetails = async () => {
         console.log('transaction of which to retrieve details:', storeHashTransaction);
-        setBlockNumber(storeHashTransaction.blockNumber);   // set state variable, to be rendered in HTML
+        setBlockNumber(storeHashTransaction.blockNumber);  
         setGasUsed(storeHashTransaction.gasUsed);
     }
     
     return (
         <div className="App"  >
             <header className="App-header">
-                <img src={logo} alt="logo" className="App-logo" />
+                
                 <h1 className="h1" >CrowdCoin Document Verification and Upload</h1>
-                <a className="App-link" target="_blank" rel="noopener noreferrer"
-                href='https://localhost:3000'>
-                <i>Go back to Homepage</i></a>
+                
+                
             </header>
             <hr/>        
             <h3> Choose file and send it to IPFS </h3>
@@ -105,16 +80,16 @@ function App() {
                     loading={loading}
                     />
                 </div>:
-                <Button variant="outline-primary" size="lg" type="submit"> 2.Send it to IPFS</Button>
+                <Button class="subbutton" size="lg" type="submit"> 2.Send it to IPFS</Button>
                 }
             </form>
             <hr/> 
 
             <h3> Get Transaction Details </h3>
-            <Button variant="outline-primary" size="lg" onClick = {getDetails}> 3.Get Storage Transaction Details </Button> 
+            <Button class="subbutton" size="lg" onClick = {getDetails}> 3.Get Storage Transaction Details </Button> 
             <hr/>
             
-            <h3> Values read from blockchain </h3>
+            <h3> Document Details</h3>
             <Table size="sm" bordered responsive>
                 <thead>
                     <tr>

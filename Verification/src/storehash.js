@@ -1,10 +1,7 @@
 import getWeb3 from "./getWeb3";
 
-
 async function storehash() { 
-
-    const address = '0x40619f0278DE88aB843d8c57A6f6c66e3ab49dd1';
-
+    const address = '0x40619f0278DE88aB843d8c57A6f6c66e3ab49dd1';   // address deployed in Remix
     const abi = [{
         "inputs": [],
         "name": "getHash",
