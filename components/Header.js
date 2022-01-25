@@ -15,7 +15,11 @@ export default () => {
                     Blockchain Crowd Funding
                 </a>
             </Link>
-             
+            <Link route="https://coinmarketcap.com/currencies/ethereum/">
+                <a className="item">
+                    Check current Ethereum Prices
+                </a>
+            </Link> 
 
             
         </Menu>
